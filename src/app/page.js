@@ -1,65 +1,160 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import { parseAgentResult } from "@/lib/parseResult";
 
 export default function Home() {
+  const [companyName, setCompanyName] = useState("");
+  const [status, setStatus] = useState("idle"); // idle | loading | done | error
+  const [result, setResult] = useState(null);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!companyName.trim()) return;
+
+    setStatus("loading");
+    setResult(null);
+    setErrorMsg("");
+
+    try {
+      const res = await fetch("/api/research", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ companyName: companyName.trim() }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Something went wrong.");
+      }
+
+      setResult(parseAgentResult(data.result));
+      setStatus("done");
+    } catch (err) {
+      setErrorMsg(err.message);
+      setStatus("error");
+    }
+  }
+
+  const isInvest = result?.decision === "INVEST";
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="min-h-screen bg-[#0B0E11] text-[#F5F3EC] flex flex-col items-center px-6 py-16">
+      {/* Header */}
+      <div className="text-center mb-12 max-w-xl">
+        <p className="font-mono text-xs tracking-[0.2em] text-[#8B8578] uppercase mb-3">
+          Research Desk
+        </p>
+        <h1 className="font-serif text-4xl sm:text-5xl mb-3">
+          Investment Research Agent
+        </h1>
+        <p className="text-[#8B8578] text-sm leading-relaxed">
+          Enter a company name. The agent researches recent news, financials,
+          competitors, and risks — then renders a call.
+        </p>
+      </div>
+
+      {/* Form */}
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-md flex gap-2 mb-12"
+      >
+        <input
+          type="text"
+          value={companyName}
+          onChange={(e) => setCompanyName(e.target.value)}
+          placeholder="e.g. Tesla, Zomato, Infosys"
+          disabled={status === "loading"}
+          className="flex-1 bg-transparent border border-[#3A3F47] focus:border-[#D4AF6A] outline-none rounded px-4 py-3 text-[#F5F3EC] placeholder-[#5A5F67] font-mono text-sm transition-colors"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+        <button
+          type="submit"
+          disabled={status === "loading" || !companyName.trim()}
+          className="bg-[#D4AF6A] text-[#0B0E11] font-mono text-sm font-semibold px-6 py-3 rounded hover:bg-[#E0BD7E] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+        >
+          {status === "loading" ? "Researching…" : "Research"}
+        </button>
+      </form>
+
+      {/* Loading state */}
+      {status === "loading" && (
+        <div className="text-center text-[#8B8578] font-mono text-sm animate-pulse">
+          Gathering filings, news, and competitor data — this takes 20–40s…
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      )}
+
+      {/* Error state */}
+      {status === "error" && (
+        <div className="w-full max-w-md border border-[#B5402F] rounded px-4 py-3 text-[#B5402F] font-mono text-sm">
+          {errorMsg}
         </div>
-      </main>
+      )}
+
+      {/* Result */}
+      {status === "done" && result && (
+        <div className="w-full max-w-xl">
+          {/* Stamped decision badge */}
+          <div className="flex flex-col items-center mb-10">
+            <div
+              className={`relative w-32 h-32 rounded-full border-4 flex items-center justify-center rotate-[-6deg] ${
+                isInvest
+                  ? "border-[#1F7A52] text-[#1F7A52]"
+                  : "border-[#B5402F] text-[#B5402F]"
+              }`}
+              style={{ borderStyle: "double" }}
+            >
+              <span className="font-serif text-xl font-bold tracking-wide">
+                {result.decision}
+              </span>
+            </div>
+            <p className="font-mono text-xs text-[#8B8578] uppercase tracking-[0.2em] mt-4">
+              Confidence: {result.confidence}
+            </p>
+          </div>
+
+          {/* Reasoning */}
+          <div className="bg-[#F5F3EC] text-[#0B0E11] rounded-lg p-6 sm:p-8 mb-6">
+            <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-[#8B8578] mb-4">
+              Reasoning
+            </h2>
+            <ul className="space-y-3">
+              {result.reasoning.map((point, i) => (
+                <li key={i} className="flex gap-3 text-sm leading-relaxed">
+                  <span className="font-mono text-[#D4AF6A] shrink-0">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Sources */}
+          {result.sources.length > 0 && (
+            <div className="border border-[#3A3F47] rounded-lg p-6 sm:p-8">
+              <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-[#8B8578] mb-4">
+                Sources
+              </h2>
+              <ul className="space-y-2">
+                {result.sources.map((url, i) => (
+                  <li key={i}>
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-xs text-[#8B8578] hover:text-[#D4AF6A] break-all transition-colors"
+                    >
+                      {url}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
