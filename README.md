@@ -80,4 +80,4 @@ Sources: infosys.com, wallstreetzen.com, businessmodelcanvastemplate.com, econom
 
 ## AI usage disclosure
 
-This project was built with AI assistance throughout, as explicitly invited by the assignment. The full chat transcript is included in the transcript folder for the bonus points, showing the step-by-step build process, debugging, and decisions made along the way. Every part of this codebase was reviewed, tested, and can be explained by me.
+This project was built with AI assistance throughout, as explicitly invited by the assignment. Every part of this codebase was reviewed, tested, and can be explained by me.
