@@ -38,7 +38,6 @@ export default function Home() {
     }
   }
 
-  const isInvest = result?.decision === "INVEST";
 
   return (
     <div className="min-h-screen bg-[#0B0E11] text-[#F5F3EC] flex flex-col items-center px-6 py-16">
@@ -99,9 +98,11 @@ export default function Home() {
           <div className="flex flex-col items-center mb-10">
             <div
               className={`relative w-32 h-32 rounded-full border-4 flex items-center justify-center rotate-[-6deg] ${
-                isInvest
+                result.decision === "INVEST"
                   ? "border-[#1F7A52] text-[#1F7A52]"
-                  : "border-[#B5402F] text-[#B5402F]"
+                  : result.decision === "PASS"
+                  ? "border-[#B5402F] text-[#B5402F]"
+                  : "border-[#8B8578] text-[#8B8578]"
               }`}
               style={{ borderStyle: "double" }}
             >
@@ -112,6 +113,11 @@ export default function Home() {
             <p className="font-mono text-xs text-[#8B8578] uppercase tracking-[0.2em] mt-4">
               Confidence: {result.confidence}
             </p>
+            {result.decision === "UNKNOWN" && (
+              <p className="font-mono text-xs text-[#B5402F] text-center mt-3 max-w-sm">
+                Couldn&apos;t parse a clear decision from the agent&apos;s response. Raw output is below.
+              </p>
+            )}
           </div>
 
           {/* Reasoning */}
