@@ -1,0 +1,14 @@
+DECISION: PASS
+CONFIDENCE: Medium
+REASONING:
+- Declining Annual Sales and Revenue: Tesla's annual revenue declined in 2025 to $94.8 billion (down from $97.7 billion in 2024). Overall EV sales fell for a second consecutive year in 2025, down 9% due to headwinds like the expiration of the US tax credit, with Cybertruck sales plunging 48%. While Q1 2026 showed a short-term rebound in revenue (up 16% year-over-year) and improved automotive gross margins (19.2%), the longer-term growth trajectory remains under pressure.
+- Intense Global Competition: Tesla is losing market share to both legacy automakers and rising Chinese EV giants. Notably, BYD outsold Tesla in Europe for the first time, and Tesla's US EV market share has narrowed to approximately 45-48% in early 2026 as alternatives from Hyundai, Kia, Rivian, and Lucid improve.
+- Brand Erosion and Leadership Risks: CEO Elon Musk's partisan political actions and controversial statements have severely damaged Tesla's brand image, particularly in Europe and Canada. A 2025 survey in Germany revealed that 94% of respondents would not consider buying a Tesla.
+- Regulatory and Safety Headwinds: The company faces ongoing regulatory scrutiny, including NHTSA investigations into self-driving crashes (vehicles running red lights and making dangerous lane changes) and Model 3 design flaws. Furthermore, Tesla's Full Self-Driving (FSD) technology is facing major regulatory pushback in Europe (e.g., Sweden).
+SOURCES:
+- https://www.macrotrends.net/stocks/charts/TSLA/tesla/revenue
+- https://www.cnbc.com/2026/04/22/tesla-tsla-q1-2026-earnings-report.html
+- https://www.cbsnews.com/tag/tesla
+- https://en.wikipedia.org/wiki/Criticism_of_Tesla,_Inc.
+- https://www.investopedia.com/ask/answers/120314/who-are-teslas-tsla-main-competitors.asp
+- https://www.teslarati.com/latest-tesla-news

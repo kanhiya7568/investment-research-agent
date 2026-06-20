@@ -1,0 +1,16 @@
+DECISION: INVEST
+CONFIDENCE: High
+REASONING:
+- Market Leadership and Moat: Zomato holds a dominant position in the Indian food delivery sector with a 58% market share (compared to Swiggy's 42%). Additionally, its quick commerce arm, Blinkit, leads the market with a 46% share, outperforming key competitors like Zepto and Swiggy Instamart.
+- Proven Profitability and Pricing Power: Zomato has successfully transitioned from a loss-making startup to a highly profitable business. Its quarterly net profits grew from Rs 39 crore in March 2025 to Rs 174 crore in March 2026, driven by operational efficiencies and pricing power, as demonstrated by its ability to increase platform fees to Rs 14.90 per order.
+- Robust Capitalization and Strategic Leadership: Following an Rs 8,500 crore QIP raise in late 2024, Zomato is exceptionally well-capitalized to withstand competitive pressures. The transition of Blinkit founder Albinder Dhindsa to CEO of the parent company (Eternal) in early 2026 aligns leadership with the high-growth quick commerce segment, ensuring strong operational execution.
+SOURCES:
+- https://m.economictimes.com/small-biz/zomato/7
+- https://economictimes.indiatimes.com/small-biz/zomato
+- https://indianexpress.com/about/zomato
+- https://groww.in/stocks/zomato-ltd/company-financial
+- https://b.zmtcdn.com/investor-relations/Zomato_Annual_Report_2023-24.pdf
+- https://matrixbcg.com/blogs/competitors/zomato
+- https://theequityecho.substack.com/p/case-study-how-zomato-finally-became
+- https://www.brineweb.com/blog/zomato-business-model-revenue-model-explained-2026
+- https://www.linkedin.com/pulse/zomatos-2026-pivot-new-ceo-human-cost-speed-priyanka-verma-ht5vc
